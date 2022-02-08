@@ -1,0 +1,40 @@
+html, body {
+    height: 100vh;
+}
+
+body {
+    margin: 0px;
+}
+
+html, button {
+    font-size: 12px;
+}
+
+button {
+    margin: auto;
+    width: 100px;
+}
+
+.mainBox, .legend, .gridBox {
+    display: flex;
+}
+
+.mainBox, .legend {
+    flex-direction: column;
+}
+
+.mainBox {
+    aspect-ratio: 1/1;
+}
+
+.legend {
+    flex: 0 1 auto;
+    margin: 0 0 5px 5px;
+}
+
+.gridBox {
+    flex: 1 0 auto; 
+    flex-wrap: wrap;
+}
+
+
