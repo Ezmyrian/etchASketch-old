@@ -1,18 +1,22 @@
 const mainBox = document.querySelector('.mainBox');
 const gridBox = document.querySelector('.gridBox');
 const legend = document.querySelector('.legend');
+const gridCounter = document.querySelector('.gridCounter');
 
 window.addEventListener('resize', windowResize);
 
 function windowResize() {
     let windowHeight = window.innerHeight
-    let legendHeight = legend.offsetHeight + 5;  //5 to account for margin on bottom of legend.
+    let legendHeight = legend.offsetHeight;
     mainBox.style.cssText = `max-height: ${windowHeight}px;`
     gridBox.style.cssText = `max-height: ${windowHeight - legendHeight}px;`
 }
 windowResize()
 
 function createChildContainer(numBoxes = 16) {
+    let gridCounterText = document.createTextNode(`Grid Size: ${numBoxes}`);
+    gridCounter.append(gridCounterText);  
+
     for (i = 0; i < numBoxes; i++) {
         let childContainer = document.createElement('div')
         childContainer.classList.add(`childContainer`);
@@ -53,12 +57,18 @@ function reset() {
         gridBox.removeChild(gridBox.lastElementChild);
     }
     let numBoxes = prompt('How many boxes per side would you like?', 'default: 16, max: 100');
-    createChildContainer(numBoxes)
+    gridCounter.removeChild(gridCounter.firstChild);
+    if (numBoxes < 1) {
+        numBoxes = 1;
+        createChildContainer(numBoxes)
+    }
+    else if (numBoxes > 100) {
+        numBoxes = 100;
+        createChildContainer(numBoxes)
+    }
+    else createChildContainer(numBoxes)
     addBackgroundListener()
 }
-
-
-
 
 
 
@@ -91,16 +101,4 @@ if (childBox.classList.contains(colored)) {
         this.style.cssText = `background-color: ${'#' + Math.floor(math.random()*16777215).toString(16).padStart(6, 0)}; filter: brightness(100%);`
     }
 })
-*/
-
-
-/*
-let childBox = document.createElement('div');
-                let jString = toString(j);
-                console.log(jString);
-                let iString = `${i}`
-                console.log(iString);
-                let iJString = iString + jString;
-                console.log(iJString);
-                childBox.classList.add(`child${iString + jString.padStart(2, 0)}`);
 */
