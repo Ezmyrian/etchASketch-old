@@ -7,15 +7,17 @@ body {
 }
 
 html, button {
-    font-size: 12px;
+    font-size: 14px;
 }
 
 button {
-    margin: auto;
+    margin: 0 auto 0 20px;
     width: 100px;
+    height: 30px;
+    align-self: center;
 }
 
-.mainBox, .legend, .gridBox {
+.mainBox, .legend, .gridBox, .gridCount {
     display: flex;
 }
 
@@ -29,12 +31,15 @@ button {
 
 .legend {
     flex: 0 1 auto;
-    margin: 0 0 5px 5px;
+    text-align: center;
+    align-items: center;
 }
 
 .gridBox {
     flex: 1 0 auto; 
     flex-wrap: wrap;
 }
+
+
 
 
