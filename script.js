@@ -52,21 +52,34 @@ button.addEventListener('click', () => reset());
 
 
 function reset() {
-    const gridBox = document.querySelector('.gridBox');
-    while (gridBox.lastElementChild) {
-        gridBox.removeChild(gridBox.lastElementChild);
+    
+
+    let numBoxes = prompt('How many boxes per side would you like?\nDefault: 16, Max: 100');
+    numBoxes = Number(numBoxes);
+    console.log(typeof numBoxes);
+    console.log(numBoxes);
+    if (numBoxes != numBoxes) {
+        alert('Enter a number');
+        return
     }
-    let numBoxes = prompt('How many boxes per side would you like?', 'default: 16, max: 100');
-    gridCounter.removeChild(gridCounter.firstChild);
-    if (numBoxes < 1) {
-        numBoxes = 1;
-        createChildContainer(numBoxes)
+    else {
+        const gridBox = document.querySelector('.gridBox');
+            while (gridBox.lastElementChild) {
+                gridBox.removeChild(gridBox.lastElementChild);
+            }
+        gridCounter.removeChild(gridCounter.firstChild);
+        numBoxes = Math.floor(numBoxes);
+        if (numBoxes < 16) {
+            numBoxes = 16;
+            createChildContainer(numBoxes)
+        }
+        else if (numBoxes > 100) {
+            numBoxes = 100;
+            createChildContainer(numBoxes)
+        }
+        else createChildContainer(numBoxes)
     }
-    else if (numBoxes > 100) {
-        numBoxes = 100;
-        createChildContainer(numBoxes)
-    }
-    else createChildContainer(numBoxes)
+
     addBackgroundListener()
 }
 
