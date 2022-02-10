@@ -3,11 +3,11 @@ html, body {
 }
 
 body {
-    margin: 0px;
+    background-color: black;
 }
 
-html, button {
-    font-size: 14px;
+html, button, p {
+    font-size: 16px;
 }
 
 button {
@@ -27,6 +27,8 @@ button {
 
 .mainBox {
     aspect-ratio: 1/1;
+    margin: auto;
+    background-color: white;
 }
 
 .legend {
