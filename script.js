@@ -25,7 +25,7 @@ function createChildContainer(numBoxes = 16) {
             for(j = 0; j < numBoxes; j++) {
                 let childBox = document.createElement('div');
                 childBox.classList.add(`child`);
-                childBox.style.cssText = `flex: 1 0 ${Math.floor(100 / numBoxes)}%; min-width: 1px; border: 0.5px solid black;`
+                childBox.style.cssText = `flex: 1 0 ${Math.floor(100 / numBoxes)}%; min-width: 1px; border: 1px solid black;`
                 childContainer.append(childBox);
             }
         }
@@ -37,13 +37,34 @@ createChildContainer()
 
 function addBackgroundListener() {
     let childDiv = document.querySelectorAll('.child');
-    let numBox = document.querySelectorAll('.child').length
+    let numBox = document.querySelectorAll('.child').length;
     numBox = Math.sqrt(numBox);
     childDiv.forEach((childBox) => {
         childBox.addEventListener('mouseenter', () => {
-            childBox.style.cssText = `background-color: black; flex: 1 0 ${Math.floor(100 / numBox)}%; min-width: 1px; border: 0.5px solid black;`
+            if (!childBox.classList.contains('colored')) {
+                let randomHue = Math.floor(Math.random() * 360 + 1);
+                let randomColor = 'hsl(' + randomHue + ', 100%, 50%)';
+                childBox.style.cssText = `background-color: ${randomColor}; flex: 1 0 ${Math.floor(100 / numBox)}%; min-width: 1px; border: 1px solid black;`
+                childBox.classList.add('colored');
+                childBox.setAttribute(`data-hue`, `${randomHue}`);
+                childBox.setAttribute(`data-lightness`, 50);
+            }
+            else {
+                let color = childBox.dataset.hue;
+                let lightness = childBox.dataset.lightness;
+                if (lightness == 0) {
+                    return;
+                }
+                else {
+                    let darker = lightness - 5;
+                    let newColor = `hsl(` + color + `, 100%, ` + darker + `%)`;
+                    childBox.setAttribute(`data-lightness`, darker);
+                    childBox.style.cssText = `background-color: ${newColor}; flex: 1 0 ${Math.floor(100 / numBox)}%; min-width: 1px; border: 1px solid black;`
+                }
+            }
         })
     })
+
 }
 addBackgroundListener()
 
@@ -54,10 +75,8 @@ button.addEventListener('click', () => reset());
 function reset() {
     
 
-    let numBoxes = prompt('How many boxes per side would you like?\nDefault: 16, Max: 100');
+    let numBoxes = prompt('How many boxes per side would you like? \nDefault: 16, Max: 100');
     numBoxes = Number(numBoxes);
-    console.log(typeof numBoxes);
-    console.log(numBoxes);
     if (numBoxes != numBoxes) {
         alert('Enter a number');
         return
@@ -82,36 +101,3 @@ function reset() {
 
     addBackgroundListener()
 }
-
-
-
-/*
-if (childBox.classList.contains(colored)) {
-            let shade = this.getAttribute('filter');
-            shade = shade.substr(12, 3);
-            shade = Number(shade);
-            shade -= 10;
-            shade = shade + '%';
-            this.setAttribute('filter', shade);
-        }
-        else {
-            this.classList.add('colored');
-            this.style.cssText = `background-color: ${'#' + Math.floor(math.random()*16777215).toString(16).padStart(6, 0)}; filter: brightness(100%);`
-        }
-*/
-/*
-('mouseover', function() {
-    if (classList.contains(colored)) {
-        let shade = this.getAttribute('filter');
-        shade = shade.substr(12, 3);
-        shade = Number(shade);
-        shade -= 10;
-        shade = shade + '%';
-        this.setAttribute('filter', shade);
-    }
-    else {
-        this.classList.add('colored');
-        this.style.cssText = `background-color: ${'#' + Math.floor(math.random()*16777215).toString(16).padStart(6, 0)}; filter: brightness(100%);`
-    }
-})
-*/
